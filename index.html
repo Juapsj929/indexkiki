@@ -1,320 +1,383 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Envíos Nacionales | Rastrea tus paquetes, consulta tarifas y obtén atención personalizada.">
-    <title>Envíos Nacionales - Rastrea tu Envío</title>
-    <style>
-        /* ==== ESTILOS GENERALES ==== */
-        :root {
-            --color-primario: #004aad;
-            --color-secundario: #ffb400;
-            --color-fondo: #f7f7f7;
-            --color-texto: #333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rastreo Express | Envíos Nacionales</title>
+  <style>
+    /* ======== VARIABLES ======== */
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --accent: #00ffc6;
+      --text: #e6edf3;
+      --text-light: #a3b3c2;
+      --radius: 10px;
+      --transition: all 0.3s ease;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--color-fondo);
-            color: var(--color-texto);
-        }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-        header {
-            background-color: var(--color-primario);
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    header {
+      background: linear-gradient(90deg, #0074ff, #00ffc6);
+      color: #000;
+      padding: 20px 0;
+      text-align: center;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      letter-spacing: 1px;
+    }
 
-        header h1 {
-            font-size: 2rem;
-        }
+    nav {
+      margin-top: 10px;
+    }
 
-        nav {
-            margin-top: 10px;
-        }
+    nav a {
+      color: black;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
 
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+    nav a:hover {
+      color: white;
+    }
 
-        nav a:hover {
-            color: var(--color-secundario);
-        }
+    /* ======== HERO ======== */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1605902711622-cfb43c4437d1?auto=format&fit=crop&w=1400&q=60') center/cover no-repeat;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      backdrop-filter: brightness(0.5);
+      color: white;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
 
-        /* ==== HERO ==== */
-        .hero {
-            background: url('https://images.unsplash.com/photo-1605902711622-cfb43c4437d1') center/cover no-repeat;
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
-        }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
 
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-        }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
 
-        /* ==== FORMULARIO RASTREO ==== */
-        .rastreo {
-            text-align: center;
-            padding: 50px 20px;
-            background-color: white;
-        }
+    .hero p {
+      font-size: 1.1rem;
+      color: #dcdcdc;
+    }
 
-        .rastreo h2 {
-            color: var(--color-primario);
-            margin-bottom: 20px;
-        }
+    /* ======== RASTREO ======== */
+    #rastreo {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: -60px auto 40px;
+      box-shadow: 0 0 30px rgba(0, 255, 198, 0.2);
+      text-align: center;
+      position: relative;
+    }
 
-        .rastreo input {
-            width: 60%;
-            padding: 10px;
-            border: 2px solid var(--color-primario);
-            border-radius: 5px;
-            font-size: 1rem;
-        }
+    #rastreo h2 {
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
 
-        .rastreo button {
-            background-color: var(--color-secundario);
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            margin-left: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+    .rastreo-input {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-        .rastreo button:hover {
-            background-color: #e6a800;
-        }
+    #guia {
+      width: 60%;
+      padding: 12px;
+      border-radius: var(--radius);
+      border: 2px solid var(--accent);
+      background-color: transparent;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
 
-        #resultado-rastreo {
-            margin-top: 20px;
-            font-weight: bold;
-        }
+    #rastreo button {
+      background-color: var(--accent);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      margin-left: 10px;
+      transition: var(--transition);
+    }
 
-        /* ==== SECCIONES ==== */
-        section {
-            padding: 50px 20px;
-        }
+    #rastreo button:hover {
+      background-color: #00cc9d;
+      transform: scale(1.05);
+    }
 
-        .servicios, .faq, .testimonios, .contacto {
-            background-color: white;
-            margin: 20px auto;
-            border-radius: 10px;
-            max-width: 1000px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.1rem;
+    }
 
-        .servicios h2, .faq h2, .testimonios h2, .contacto h2 {
-            color: var(--color-primario);
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    /* ======== SECCIONES ======== */
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
 
-        .servicios ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
+    section h2 {
+      color: var(--accent);
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
 
-        .servicios li {
-            width: 45%;
-            margin-bottom: 20px;
-            background-color: #f2f2f2;
-            padding: 20px;
-            border-radius: 8px;
-        }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
 
-        /* ==== TESTIMONIOS ==== */
-        .testimonios .caja {
-            background-color: #f9f9f9;
-            margin: 10px auto;
-            padding: 15px;
-            border-left: 5px solid var(--color-primario);
-            width: 80%;
-            font-style: italic;
-        }
+    .card {
+      background-color: var(--card);
+      border-radius: var(--radius);
+      padding: 25px;
+      width: 280px;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: 0 0 10px rgba(255,255,255,0.05);
+    }
 
-        /* ==== FAQ ==== */
-        .faq details {
-            margin-bottom: 10px;
-            background-color: #f2f2f2;
-            padding: 15px;
-            border-radius: 5px;
-        }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(0,255,198,0.3);
+    }
 
-        /* ==== CONTACTO ==== */
-        .contacto form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .card i {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
 
-        .contacto input, .contacto textarea {
-            width: 80%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    /* ======== TESTIMONIOS ======== */
+    .testimonios {
+      background-color: #11151c;
+      padding: 60px 20px;
+    }
 
-        .contacto button {
-            background-color: var(--color-primario);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .testimonio {
+      background: var(--card);
+      border-left: 5px solid var(--accent);
+      margin: 20px auto;
+      padding: 20px;
+      width: 80%;
+      border-radius: var(--radius);
+      font-style: italic;
+      color: var(--text-light);
+    }
 
-        .contacto button:hover {
-            background-color: #003080;
-        }
+    /* ======== CONTACTO ======== */
+    .contacto form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 600px;
+      margin: auto;
+    }
 
-        footer {
-            background-color: var(--color-primario);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: 40px;
-        }
+    .contacto input, .contacto textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: var(--radius);
+      border: none;
+      background-color: #1f2630;
+      color: var(--text);
+    }
 
-        @media (max-width: 768px) {
-            .servicios li {
-                width: 100%;
-            }
+    .contacto button {
+      background-color: var(--accent);
+      border: none;
+      color: #000;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-            .rastreo input {
-                width: 90%;
-                margin-bottom: 10px;
-            }
-        }
-    </style>
+    .contacto button:hover {
+      background-color: #00cc9d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #0b0f14;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      #guia {
+        width: 90%;
+      }
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>🚚 Envíos Nacionales</h1>
-        <nav>
-            <a href="#rastreo">Rastrear</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#faq">Preguntas</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
-    </header>
+  <header>
+    <h1>🚀 Rastreo Express</h1>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#rastreo">Rastrear</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#tarifas">Tarifas</a>
+      <a href="#testimonios">Opiniones</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
 
-    <section class="hero">
-        <h2>Envíos rápidos, seguros y confiables</h2>
-        <p>Desde cualquier punto del país, llegamos a donde lo necesites.</p>
-    </section>
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <h1>Envíos Nacionales Inteligentes</h1>
+      <p>Rastrea, envía y gestiona tus paquetes desde cualquier parte del país. Servicio rápido, seguro y confiable.</p>
+    </div>
+  </section>
 
-    <section id="rastreo" class="rastreo">
-        <h2>🔍 Rastrea tu envío</h2>
-        <p>Introduce tu número de guía para conocer el estado de tu paquete:</p>
-        <input type="text" id="numeroGuia" placeholder="Ejemplo: EN123456789MX">
-        <button onclick="rastrear()">Rastrear</button>
-        <p id="resultado-rastreo"></p>
-    </section>
+  <section id="rastreo">
+    <h2>🔍 Rastrea tu guía</h2>
+    <div class="rastreo-input">
+      <input type="text" id="guia" placeholder="Ingresa tu número de guía...">
+      <button onclick="rastrear()">Buscar</button>
+    </div>
+    <div id="resultado"></div>
+  </section>
 
-    <section id="servicios" class="servicios">
-        <h2>📦 Nuestros Servicios</h2>
-        <ul>
-            <li><strong>Envíos nacionales express:</strong> Entrega en menos de 24 horas en principales ciudades.</li>
-            <li><strong>Envíos económicos:</strong> Alternativa accesible con cobertura nacional.</li>
-            <li><strong>Recolección a domicilio:</strong> Pasamos por tu paquete sin costo adicional.</li>
-            <li><strong>Seguimiento en tiempo real:</strong> Rastrea cada movimiento de tu envío.</li>
-        </ul>
-    </section>
+  <section id="servicios">
+    <h2>💼 Servicios</h2>
+    <div class="cards">
+      <div class="card">
+        <i>🚚</i>
+        <h3>Envío Express</h3>
+        <p>Entrega en 24 horas en principales ciudades del país.</p>
+      </div>
+      <div class="card">
+        <i>📦</i>
+        <h3>Envío Económico</h3>
+        <p>Opciones accesibles sin sacrificar seguridad ni seguimiento.</p>
+      </div>
+      <div class="card">
+        <i>🏠</i>
+        <h3>Recolección Domicilio</h3>
+        <p>Vamos por tu paquete sin costo adicional.</p>
+      </div>
+      <div class="card">
+        <i>📍</i>
+        <h3>Rastreo en Tiempo Real</h3>
+        <p>Visualiza cada etapa de tu envío fácilmente.</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="faq" class="faq">
-        <h2>❓ Preguntas Frecuentes</h2>
-        <details>
-            <summary>¿Cuánto tarda un envío nacional?</summary>
-            <p>Depende de la distancia. En promedio, entre 24 y 72 horas.</p>
-        </details>
-        <details>
-            <summary>¿Qué artículos no puedo enviar?</summary>
-            <p>Prohibido enviar productos inflamables, armas, dinero en efectivo o materiales peligrosos.</p>
-        </details>
-        <details>
-            <summary>¿Puedo rastrear varios paquetes?</summary>
-            <p>Sí, cada paquete tiene un número de guía único para su seguimiento.</p>
-        </details>
-    </section>
+  <section id="tarifas">
+    <h2>💰 Tarifas</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Envío Local</h3>
+        <p>Desde <strong>$70 MXN</strong></p>
+      </div>
+      <div class="card">
+        <h3>Envío Regional</h3>
+        <p>Desde <strong>$110 MXN</strong></p>
+      </div>
+      <div class="card">
+        <h3>Envío Nacional</h3>
+        <p>Desde <strong>$150 MXN</strong></p>
+      </div>
+    </div>
+  </section>
 
-    <section id="testimonios" class="testimonios">
-        <h2>💬 Testimonios</h2>
-        <div class="caja">"Excelente servicio, mi paquete llegó antes de lo esperado." – María G.</div>
-        <div class="caja">"Muy fácil rastrear mi guía y el personal súper atento." – Juan P.</div>
-        <div class="caja">"Recomiendo el envío express, ¡muy rápido!" – Sofía L.</div>
-    </section>
+  <section id="testimonios" class="testimonios">
+    <h2>⭐ Opiniones</h2>
+    <div class="testimonio">“Increíblemente rápido y fácil de usar.” – <strong>Daniel R.</strong></div>
+    <div class="testimonio">“El rastreo en tiempo real me dio total tranquilidad.” – <strong>María P.</strong></div>
+    <div class="testimonio">“Mi paquete llegó en perfectas condiciones.” – <strong>Laura G.</strong></div>
+  </section>
 
-    <section id="contacto" class="contacto">
-        <h2>📞 Contáctanos</h2>
-        <form>
-            <input type="text" placeholder="Nombre completo" required>
-            <input type="email" placeholder="Correo electrónico" required>
-            <textarea rows="5" placeholder="Escribe tu mensaje..." required></textarea>
-            <button type="submit">Enviar mensaje</button>
-        </form>
-    </section>
+  <section id="contacto" class="contacto">
+    <h2>📩 Contáctanos</h2>
+    <form>
+      <input type="text" placeholder="Nombre completo" required>
+      <input type="email" placeholder="Correo electrónico" required>
+      <textarea rows="4" placeholder="Tu mensaje..." required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
 
-    <footer>
-        <p>© 2025 Envíos Nacionales | Todos los derechos reservados</p>
-    </footer>
+  <footer>
+    © 2025 Rastreo Express — Creado con ❤️ para tus envíos
+  </footer>
 
-    <script>
-        function rastrear() {
-            const guia = document.getElementById('numeroGuia').value.trim();
-            const resultado = document.getElementById('resultado-rastreo');
+  <script>
+    function rastrear() {
+      const guia = document.getElementById("guia").value.trim();
+      const resultado = document.getElementById("resultado");
 
-            if (guia === "") {
-                resultado.textContent = "⚠️ Por favor ingresa un número de guía válido.";
-                resultado.style.color = "red";
-                return;
-            }
+      if (!guia) {
+        resultado.textContent = "⚠️ Por favor ingresa un número de guía.";
+        resultado.style.color = "red";
+        return;
+      }
 
-            // Simulación de rastreo
-            const estados = [
-                "Tu paquete ha sido recibido en oficina origen.",
-                "Tu paquete está en tránsito hacia el centro de distribución.",
-                "Tu paquete está en reparto.",
-                "Tu paquete ha sido entregado. ✅"
-            ];
+      const estados = [
+        "📦 En proceso de recolección.",
+        "🚚 En tránsito hacia el centro de distribución.",
+        "📍 En ruta de entrega.",
+        "✅ Entregado con éxito."
+      ];
 
-            const estado = estados[Math.floor(Math.random() * estados.length)];
-            resultado.textContent = `Estado de la guía ${guia}: ${estado}`;
-            resultado.style.color = "green";
-        }
-    </script>
+      const estado = estados[Math.floor(Math.random() * estados.length)];
+      resultado.textContent = `Guía ${guia}: ${estado}`;
+      resultado.style.color = "var(--accent)";
+    }
+  </script>
 
 </body>
 </html>
